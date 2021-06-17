@@ -1,3 +1,3 @@
-# `react-app-template`
+# `kathas-react`
 
-This is my React App Template.
+ReactJS version of Kathas.

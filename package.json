@@ -10,14 +10,39 @@
   "author": "Yash Singh",
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "^5.0.1",
     "live-server": "^1.2.1",
     "parcel-bundler": "^1.12.5",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react-bootstrap": "^1.6.1",
+    "react-dom": "^16.14.0",
+    "react-router-dom": "^5.2.0"
   },
   "scripts": {
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "start": "npm run build && live-server dist"
+    "start": "npm run build && live-server dist --file=index.html",
+    "test": "jest --watch --coverage"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "babel-jest": "^27.0.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "jest-cli": "^27.0.4",
+    "jest-enzyme": "^7.1.2",
+    "react-test-renderer": "^16.14.0"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./src/setupTests.js"
+    ],
+    "moduleNameMapper": {
+      "assets/(.*)$": [
+        "<rootDir>/__mocks__/fileMock.js"
+      ]
+    }
   }
 }

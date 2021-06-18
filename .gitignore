@@ -2,6 +2,10 @@
 node_modules/
 package-lock.json
 
+# Code Coverage
+coverage/
+dist/
+
 # Build
 .cache/
 dist/

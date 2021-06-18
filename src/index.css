@@ -4,3 +4,56 @@ body {
   padding: 2.5%;
   font-family: 'Baloo Bhai 2', cursive;
 }
+
+nav {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  border-radius: 0px !important;
+  width: 100%;
+}
+
+.navbar-brand {
+  padding-top: 1.25rem;
+}
+
+.nav-link {
+  font-size: 22px;
+  padding-top: 0.6rem;
+}
+
+.card {
+  display: inline-block;
+  font-size: 16px;
+  width: 210px;
+  height: 190px;
+  border: none;
+  position: relative;
+  margin: 30px;
+}
+
+.card-image {
+  width: 210px;
+  height: 160px;
+}
+
+.card-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 210px;
+  height: 30px;
+  bottom: 0px;
+  background-color: black;
+  color: white;
+  padding: 5px;
+}
+
+.card-button {
+  font-size: 12px;
+  position: relative;
+  margin-top: 35px;
+  padding: 5px;
+  width: 75px;
+}

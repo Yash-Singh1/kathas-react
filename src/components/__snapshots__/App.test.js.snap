@@ -1,0 +1,502 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders properly 1`] = `
+App {
+  "context": Object {},
+  "props": Object {},
+  "refs": Object {},
+  "state": null,
+  "updater": Updater {
+    "_callbacks": Array [],
+    "_renderer": ReactShallowRenderer {
+      "_context": Object {},
+      "_didScheduleRenderPhaseUpdate": false,
+      "_dispatcher": Object {
+        "readContext": [Function],
+        "useCallback": [Function],
+        "useContext": [Function],
+        "useDebugValue": [Function],
+        "useDeferredValue": [Function],
+        "useEffect": [Function],
+        "useImperativeHandle": [Function],
+        "useLayoutEffect": [Function],
+        "useMemo": [Function],
+        "useReducer": [Function],
+        "useRef": [Function],
+        "useResponder": [Function],
+        "useState": [Function],
+        "useTransition": [Function],
+      },
+      "_element": <App />,
+      "_firstWorkInProgressHook": null,
+      "_forcedUpdate": false,
+      "_instance": [Circular],
+      "_isReRender": false,
+      "_newState": null,
+      "_numberOfReRenders": 0,
+      "_renderPhaseUpdates": null,
+      "_rendered": <NavigationBar>
+        <div
+          className="card"
+        >
+          <img
+            alt="Durga"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Durga
+             / 
+            दुर्गा
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/durga/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/durga/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Ganesh"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Ganesh
+             / 
+            गणेश
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/ganesh/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/ganesh/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Hanuman"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Hanuman
+             / 
+            हनुमान
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/hanuman/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/hanuman/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Krishna"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Krishna
+             / 
+            कृष्णा
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/krishna/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/krishna/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Laxmi"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Laxmi
+             / 
+            लक्ष्मी
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/laxmi/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/laxmi/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="MahaKali"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            MahaKali
+             / 
+            महा काली
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/mahakali/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/mahakali/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Ram"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Ram
+             / 
+            राम
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/ram/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/ram/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Sai Baba"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Sai Baba
+             / 
+            साई बाबा
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/saibaba/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/saibaba/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Saraswati"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Saraswati
+             / 
+            सरस्वती
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/saraswati/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/saraswati/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Shani"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Shani
+             / 
+            शनि
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/shani/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/shani/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Shiva"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Shiva
+             / 
+            शिव
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/shiva/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/shiva/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+        <div
+          className="card"
+        >
+          <img
+            alt="Vishnu"
+            className="card-image"
+            src=""
+          />
+          <p
+            className="card-text"
+          >
+            Vishnu
+             / 
+            विष्णु
+          </p>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/vishnu/chalisa"
+          >
+            Chalisa
+          </Link>
+          <Link
+            className="card-button btn btn-primary"
+            style={
+              Object {
+                "marginLeft": 10,
+              }
+            }
+            to="/vishnu/aarti"
+          >
+            Aarti
+          </Link>
+        </div>
+      </NavigationBar>,
+      "_rendering": false,
+      "_updater": [Circular],
+      "_workInProgressHook": null,
+    },
+  },
+}
+`;

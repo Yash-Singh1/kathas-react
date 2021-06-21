@@ -7,7 +7,7 @@ describe('App', () => {
   const app = shallow(<App />);
 
   it('renders properly', () => {
-    expect(app.instance()).toMatchSnapshot();
+    expect(app).toMatchSnapshot();
   });
 
   it('contains the navbar', () => {

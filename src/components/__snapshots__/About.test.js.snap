@@ -1,59 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`About renders properly 1`] = `
-About {
-  "context": Object {},
-  "props": Object {},
-  "refs": Object {},
-  "state": null,
-  "updater": Updater {
-    "_callbacks": Array [],
-    "_renderer": ReactShallowRenderer {
-      "_context": Object {},
-      "_didScheduleRenderPhaseUpdate": false,
-      "_dispatcher": Object {
-        "readContext": [Function],
-        "useCallback": [Function],
-        "useContext": [Function],
-        "useDebugValue": [Function],
-        "useDeferredValue": [Function],
-        "useEffect": [Function],
-        "useImperativeHandle": [Function],
-        "useLayoutEffect": [Function],
-        "useMemo": [Function],
-        "useReducer": [Function],
-        "useRef": [Function],
-        "useResponder": [Function],
-        "useState": [Function],
-        "useTransition": [Function],
-      },
-      "_element": <About />,
-      "_firstWorkInProgressHook": null,
-      "_forcedUpdate": false,
-      "_instance": [Circular],
-      "_isReRender": false,
-      "_newState": null,
-      "_numberOfReRenders": 0,
-      "_renderPhaseUpdates": null,
-      "_rendered": <NavigationBar>
-        <h1>
-          About
-        </h1>
-        <p>
-          Kathas is a website based on the original
-           
-          <a
-            href="http://kathas.github.io/"
-          >
-            Kathas
-          </a>
-           that is rewritten in React
-        </p>
-      </NavigationBar>,
-      "_rendering": false,
-      "_updater": [Circular],
-      "_workInProgressHook": null,
-    },
-  },
-}
+<NavigationBar>
+  <h1>
+    About
+  </h1>
+  <p>
+    Kathas is a website based on the original
+     
+    <a
+      href="http://kathas.github.io/"
+    >
+      Kathas
+    </a>
+     that is rewritten in React
+  </p>
+</NavigationBar>
 `;

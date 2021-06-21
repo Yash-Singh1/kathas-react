@@ -1,11 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App renders properly 1`] = `
+exports[`NavigationBar renders properly 1`] = `
 NavigationBar {
   "context": Object {},
   "props": Object {},
   "refs": Object {},
-  "state": null,
+  "state": Object {
+    "redirect": false,
+    "value": "",
+  },
   "updater": Updater {
     "_callbacks": Array [],
     "_renderer": ReactShallowRenderer {
@@ -38,57 +41,104 @@ NavigationBar {
       "_rendered": <React.Fragment>
         <Navbar
           bg="primary"
-          collapseOnSelect={false}
-          expand={true}
+          collapseOnSelect={true}
+          expand="lg"
+          style={
+            Object {
+              "zIndex": 10,
+            }
+          }
           variant="dark"
         >
-          <Nav
-            fill={false}
-            justify={false}
+          <NavbarBrand
+            href="/"
+            style={
+              Object {
+                "fontSize": "3rem",
+              }
+            }
           >
-            <NavbarBrand
-              href="/"
+            <img
+              alt="kathas icon"
+              src=""
               style={
                 Object {
-                  "fontSize": "3rem",
+                  "display": "inline-block",
+                  "marginLeft": 10,
+                  "marginRight": 5,
+                  "width": "2rem",
                 }
               }
+            />
+             
+            Kathas
+          </NavbarBrand>
+          <NavbarToggle
+            aria-controls="responsive-navbar-nav"
+            label="Toggle navigation"
+          />
+          <NavbarCollapse
+            id="responsive-navbar-nav"
+          >
+            <Nav
+              className="mr-auto"
+              fill={false}
+              justify={false}
             >
-              <img
-                alt="kathas icon"
-                src=""
+              <Link
+                className="nav-link"
+                to="/"
+              >
+                Home
+              </Link>
+              <Link
+                className="nav-link"
+                to="/about"
+              >
+                About
+              </Link>
+              <Form
+                inline={false}
                 style={
                   Object {
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                    "marginRight": 5,
-                    "width": "2rem",
+                    "display": "flex",
+                    "justifyContent": "center",
                   }
                 }
-              />
-               
-              Kathas
-            </NavbarBrand>
-            <NavLink
-              as={
-                Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "displayName": "SafeAnchor",
-                  "render": [Function],
-                }
-              }
-              disabled={false}
-              href="/"
-            >
-              Home
-            </NavLink>
-            <Link
-              className="nav-link"
-              to="/about"
-            >
-              About
-            </Link>
-          </Nav>
+              >
+                <FormControl
+                  aria-label="Search"
+                  onChange={[Function]}
+                  onKeyPress={[Function]}
+                  placeholder="Search 🔍"
+                  style={
+                    Object {
+                      "fontSize": 16,
+                      "height": 40,
+                      "marginLeft": 10,
+                      "marginRight": 2,
+                      "maxWidth": 200,
+                    }
+                  }
+                  type="search"
+                  value=""
+                />
+                <Button
+                  active={false}
+                  disabled={false}
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "width": 75,
+                    }
+                  }
+                  variant="success"
+                >
+                  Search
+                </Button>
+              </Form>
+            </Nav>
+          </NavbarCollapse>
         </Navbar>
         <div
           style={

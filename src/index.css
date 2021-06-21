@@ -57,3 +57,8 @@ nav {
   padding: 5px;
   width: 75px;
 }
+
+b {
+  font-weight: 900;
+  font-size: 120%;
+}

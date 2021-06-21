@@ -15,7 +15,7 @@ function textBoundary(text, search, pos = 1) {
       </>
     );
   } else {
-    let searchIndex;
+    let searchIndex = -1;
     for (let i = 0; i < pos; i++) {
       searchIndex = text.indexOf(search, searchIndex + 1);
     }

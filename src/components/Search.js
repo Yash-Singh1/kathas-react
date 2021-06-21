@@ -25,13 +25,15 @@ class Search extends Component {
                 <Link to={pageAndContent.path}>{pageAndContent.name}</Link>
               </p>
               <p>
-                {pageAndContent.text.split(query).map((v, index) => (
-                  <React.Fragment key={index}>
-                    {textBoundary(pageAndContent.text, query, index + 1)}
-                    <br />
-                  </React.Fragment>
-                ))}
-                {textBoundary(pageAndContent.text, query)}
+                {pageAndContent.text
+                  .split(query)
+                  .slice(0, -1)
+                  .map((v, index) => (
+                    <React.Fragment key={index}>
+                      {textBoundary(pageAndContent.text, query, index + 1)}
+                      <br />
+                    </React.Fragment>
+                  ))}
               </p>
             </div>
           ))

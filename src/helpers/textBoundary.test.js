@@ -39,7 +39,7 @@ it('works', () => {
     <>
       {'...'}
       bunch of stuff where in the center we have the <b>search</b>, or not
-      {'...'}
+      {''}
     </>
   );
   expect(
@@ -50,7 +50,8 @@ it('works', () => {
   ).toEqual(
     <>
       {'...'}
-      bunch of stuff where in the center we have the <b>search</b>, or not bro sup stuff and weird things and mor
+      bunch of stuff where in the center we have the <b>search</b>, or not bro
+      sup stuff and weird things and mor
       {'...'}
     </>
   );

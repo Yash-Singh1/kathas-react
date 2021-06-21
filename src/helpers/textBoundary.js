@@ -21,9 +21,11 @@ function textBoundary(text, search, pos = 1) {
     }
     return (
       <>
-        ...
+        {searchIndex - Math.floor((100 - search.length) / 2) < 0 ? '' : '...'}
         {text.slice(
-          searchIndex - Math.floor((100 - search.length) / 2),
+          searchIndex - Math.floor((100 - search.length) / 2) < 0
+            ? 0
+            : searchIndex - Math.floor((100 - search.length) / 2),
           searchIndex
         )}
         <b>{search}</b>
@@ -36,7 +38,10 @@ function textBoundary(text, search, pos = 1) {
                 searchIndex +
                 search.length
         )}
-        ...
+        {searchIndex + search.length + Math.floor((100 - search.length) / 2) >=
+        text.length
+          ? ''
+          : '...'}
       </>
     );
   }

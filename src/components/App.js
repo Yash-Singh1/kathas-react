@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NavigationBar from './NavigationBar';
 import KATHAS from '../data/kathas';
 import { Link } from 'react-router-dom';

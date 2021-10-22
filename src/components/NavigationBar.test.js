@@ -1,11 +1,32 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
-import { shallow } from 'enzyme';
+import ReactRouterDOM from 'react-router-dom';
+import { mount, shallow } from 'enzyme';
+jest.mock('react-router-dom');
 
 describe('NavigationBar', () => {
+  let useStateValueSetterMock;
+  let useStateRedirectSetterMock;
+
+  beforeEach(() => {
+    useStateValueSetterMock = jest.fn();
+    useStateRedirectSetterMock = jest.fn();
+    // Running multiple times for other calls of useState, e.g. uncontrollable
+    React.useState = jest
+      .fn()
+      .mockReturnValueOnce(['', useStateValueSetterMock]) // value
+      .mockReturnValueOnce([false, useStateRedirectSetterMock]) // redirect
+      .mockReturnValueOnce(['', useStateValueSetterMock])
+      .mockReturnValueOnce([false, useStateRedirectSetterMock])
+      .mockReturnValueOnce(['', useStateValueSetterMock])
+      .mockReturnValueOnce([false, useStateRedirectSetterMock]);
+  });
+
+  ReactRouterDOM.Redirect = jest.fn();
+
   it('renders properly', () => {
-    const navbar = shallow(<NavigationBar />);
-    expect(navbar.instance()).toMatchSnapshot();
+    const navbar = mount(<NavigationBar />);
+    expect(navbar.html()).toMatchSnapshot();
   });
 
   it('gives back children', () => {
@@ -18,11 +39,8 @@ describe('NavigationBar', () => {
   });
 
   it('has state', () => {
-    const navbar = shallow(<NavigationBar />);
-    expect(navbar.state()).toEqual({
-      value: '',
-      redirect: false
-    });
+    shallow(<NavigationBar />);
+    setTimeout(() => expect(React.useState).toHaveBeenCalledTimes(2), 0);
   });
 
   describe('and the user wants to search up something', () => {
@@ -31,32 +49,43 @@ describe('NavigationBar', () => {
       navbar
         .find('FormControl')
         .simulate('change', { target: { value: 'abc' } });
-      expect(navbar.state().value).toEqual('abc');
+      setTimeout(
+        () => expect(useStateValueSetterMock).toHaveBeenCalledWith('abc'),
+        0
+      );
     });
 
     it('redirects if the button is clicked', () => {
       const navbar = shallow(<NavigationBar />);
       navbar.find('Button').simulate('click');
-      expect(navbar.state()).toEqual({
-        value: '',
-        redirect: '/search?q='
-      });
+      setTimeout(
+        () =>
+          expect(useStateRedirectSetterMock).toHaveBeenCalledWith('/search?q='),
+        0
+      );
     });
 
     it('redirects if enter is pressed', () => {
       const navbar = shallow(<NavigationBar />);
       navbar.find('FormControl').simulate('keypress', { which: 13 });
-      expect(navbar.state()).toEqual({
-        value: '',
-        redirect: '/search?q='
-      });
+      setTimeout(
+        () =>
+          expect(useStateRedirectSetterMock).toHaveBeenCalledWith('/search?q='),
+        0
+      );
     });
 
     it('removes redirect state', () => {
-      const navbar = shallow(<NavigationBar />);
-      navbar.setState({ redirect: 'stuff' });
-      navbar.instance().componentDidUpdate();
-      expect(navbar.state().redirect).toEqual(false);
+      React.useState = jest
+        .fn()
+        .mockReturnValueOnce(['', useStateValueSetterMock]) // value
+        .mockReturnValueOnce(['stuff', useStateRedirectSetterMock]); // redirect
+
+      mount(<NavigationBar />);
+      setTimeout(
+        () => expect(useStateRedirectSetterMock).toHaveBeenCalledWith(false),
+        0
+      );
     });
 
     it('stored the query', () => {
@@ -66,23 +95,26 @@ describe('NavigationBar', () => {
     describe('with the query remembered', () => {
       it('defaults to empty string', () => {
         localStorage.removeItem('q');
-        const navbar = shallow(<NavigationBar />);
-        navbar.instance().componentDidMount();
+        mount(<NavigationBar />);
         setTimeout(() => expect(localStorage.getItem('q')).toEqual(''), 0);
       });
 
       it("doesn't remember if search prop not passed", () => {
         localStorage.setItem('q', 'stuff');
-        const navbar = shallow(<NavigationBar />);
-        navbar.instance().componentDidMount();
-        expect(navbar.state().value).toEqual('');
+        mount(<NavigationBar />);
+        setTimeout(
+          () => expect(useStateValueSetterMock).toHaveBeenCalledTimes(0),
+          0
+        );
       });
 
       it('remembers when search prop is passed', () => {
         localStorage.setItem('q', 'stuff');
-        const navbar = shallow(<NavigationBar search />);
-        navbar.instance().componentDidMount();
-        expect(navbar.state().value).toEqual('stuff');
+        mount(<NavigationBar search />);
+        setTimeout(
+          () => expect(useStateValueSetterMock).toHaveBeenCalledWith('stuff'),
+          0
+        );
       });
     });
   });

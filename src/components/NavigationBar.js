@@ -1,131 +1,124 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import icon from '../assets/favicon.ico';
 
-class NavigationBar extends Component {
-  state = { value: '', redirect: false };
+const NavigationBar = ({ search, children }) => {
+  const [value, setValue] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
-  componentDidMount() {
+  useEffect(() => {
     if (localStorage.getItem('q')) {
-      if (this.props.search) {
-        this.setState({ value: localStorage.getItem('q') });
+      if (search) {
+        setValue(localStorage.getItem('q'));
       }
     } else {
       localStorage.setItem('q', '');
     }
+  }, []);
+
+  useEffect(() => {
+    // istanbul ignore if
+    if (redirect) {
+      setRedirect(false);
+    }
+  }, [redirect]);
+
+  if (redirect) {
+    return <Redirect to={redirect} />;
   }
 
-  componentDidUpdate() {
-    /* istanbul ignore else */
-    if (this.state.redirect) {
-      this.setState({ redirect: false });
-    }
-  }
-
-  render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
-    }
-
-    return (
-      <>
-        <Navbar
-          collapseOnSelect
-          expand='lg'
-          bg='primary'
-          variant='dark'
+  return (
+    <>
+      <Navbar
+        collapseOnSelect
+        expand='lg'
+        bg='primary'
+        variant='dark'
+        style={{
+          zIndex: 10
+        }}
+      >
+        <Navbar.Brand
           style={{
-            zIndex: 10
+            fontSize: '3rem'
           }}
+          href='/'
         >
-          <Navbar.Brand
+          <img
+            alt='kathas icon'
+            src={icon}
             style={{
-              fontSize: '3rem'
+              display: 'inline-block',
+              width: '2rem',
+              marginRight: 5,
+              marginLeft: 10
             }}
-            href='/'
-          >
-            <img
-              alt='kathas icon'
-              src={icon}
+          />{' '}
+          Kathas
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+        <Navbar.Collapse id='responsive-navbar-nav'>
+          <Nav className='mr-auto'>
+            <Link className='nav-link' to='/'>
+              Home
+            </Link>
+            <Link className='nav-link' to='/about'>
+              About
+            </Link>
+            <Form
               style={{
-                display: 'inline-block',
-                width: '2rem',
-                marginRight: 5,
-                marginLeft: 10
+                display: 'flex',
+                justifyContent: 'center'
               }}
-            />{' '}
-            Kathas
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-          <Navbar.Collapse id='responsive-navbar-nav'>
-            <Nav className='mr-auto'>
-              <Link className='nav-link' to='/'>
-                Home
-              </Link>
-              <Link className='nav-link' to='/about'>
-                About
-              </Link>
-              <Form
+            >
+              <FormControl
+                type='search'
+                placeholder='Search &#128269;'
+                aria-label='Search'
                 style={{
-                  display: 'flex',
-                  justifyContent: 'center'
+                  fontSize: 16,
+                  height: 40,
+                  maxWidth: 200,
+                  marginLeft: 10,
+                  marginRight: 2
                 }}
-              >
-                <FormControl
-                  type='search'
-                  placeholder='Search &#128269;'
-                  aria-label='Search'
-                  style={{
-                    fontSize: 16,
-                    height: 40,
-                    maxWidth: 200,
-                    marginLeft: 10,
-                    marginRight: 2
-                  }}
-                  value={this.state.value}
-                  onChange={(event) => {
-                    localStorage.setItem('q', event.target.value);
-                    this.setState({ value: event.target.value });
-                  }}
-                  onKeyPress={(event) => {
-                    /* istanbul ignore else */
-                    if (event.which === 13) {
-                      this.setState({
-                        redirect:
-                          '/search?q=' + encodeURIComponent(this.state.value)
-                      });
-                    }
-                  }}
-                />
-                <Button
-                  variant='success'
-                  style={{
-                    width: 75
-                  }}
-                  onClick={() =>
-                    this.setState({
-                      redirect:
-                        '/search?q=' + encodeURIComponent(this.state.value)
-                    })
+                value={value}
+                onChange={(event) => {
+                  localStorage.setItem('q', event.target.value);
+                  setValue(event.target.value);
+                }}
+                onKeyPress={(event) => {
+                  /* istanbul ignore else */
+                  if (event.which === 13) {
+                    setRedirect('/search?q=' + encodeURIComponent(value));
                   }
-                >
-                  Search
-                </Button>
-              </Form>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <div
-          style={{
-            marginTop: 70
-          }}
-        >
-          {this.props.children}
-        </div>
-      </>
-    );
-  }
-}
+                }}
+              />
+              <Button
+                variant='success'
+                style={{
+                  width: 75
+                }}
+                onClick={() =>
+                  setRedirect('/search?q=' + encodeURIComponent(value))
+                }
+              >
+                Search
+              </Button>
+            </Form>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <div
+        style={{
+          marginTop: 70
+        }}
+      >
+        {children}
+      </div>
+    </>
+  );
+};
 
 export default NavigationBar;

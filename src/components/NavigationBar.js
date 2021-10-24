@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import {
+  Navbar,
+  NavbarBrand,
+  Nav,
+  Form,
+  FormControl,
+  Button
+} from 'react-bootstrap';
+import NavbarToggle from 'react-bootstrap/NavbarToggle';
+import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 import { Link, Redirect } from 'react-router-dom';
 import icon from '../assets/favicon.ico';
 
@@ -39,7 +48,7 @@ const NavigationBar = ({ search, children }) => {
           zIndex: 10
         }}
       >
-        <Navbar.Brand
+        <NavbarBrand
           style={{
             fontSize: '3rem'
           }}
@@ -56,9 +65,9 @@ const NavigationBar = ({ search, children }) => {
             }}
           />{' '}
           Kathas
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-        <Navbar.Collapse id='responsive-navbar-nav'>
+        </NavbarBrand>
+        <NavbarToggle aria-controls='responsive-navbar-nav' />
+        <NavbarCollapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
             <Link className='nav-link' to='/'>
               Home
@@ -108,7 +117,7 @@ const NavigationBar = ({ search, children }) => {
               </Button>
             </Form>
           </Nav>
-        </Navbar.Collapse>
+        </NavbarCollapse>
       </Navbar>
       <div
         style={{

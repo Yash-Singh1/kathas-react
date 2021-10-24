@@ -52,7 +52,8 @@ const NavigationBar = ({ search, children }) => {
           style={{
             fontSize: '3rem'
           }}
-          href='/'
+          to='/'
+          as={Link}
         >
           <img
             alt='kathas icon'
@@ -98,7 +99,7 @@ const NavigationBar = ({ search, children }) => {
                   setValue(event.target.value);
                 }}
                 onKeyPress={(event) => {
-                  /* istanbul ignore else */
+                  // istanbul ignore else
                   if (event.which === 13) {
                     setRedirect('/search?q=' + encodeURIComponent(value));
                   }

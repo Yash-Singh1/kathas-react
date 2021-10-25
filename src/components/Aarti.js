@@ -12,10 +12,10 @@ function Aarti({ match }) {
       <br />
       <p>
         {katha[match.params.type].split('\n').map((line, index) => (
-          <div key={index}>
+          <React.Fragment key={index}>
             {line}
             <br />
-          </div>
+          </React.Fragment>
         ))}
       </p>
     </NavigationBar>

@@ -43,6 +43,7 @@
       "assets/(.*)$": [
         "<rootDir>/__mocks__/fileMock.js"
       ]
-    }
+    },
+    "testEnvironment": "jsdom"
   }
 }

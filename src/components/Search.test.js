@@ -5,7 +5,8 @@ import { shallow } from 'enzyme';
 jest.mock('react-router-dom');
 
 describe('Search', () => {
-  var search = shallow(<Search />);
+  let search = shallow(<Search />);
+  ReactRouterDOM.Redirect = jest.fn(() => null);
 
   it('renders properly', () => {
     expect(search.html()).toMatchSnapshot();
@@ -19,8 +20,19 @@ describe('Search', () => {
     expect(search.find('NavigationBar').exists()).toBe(true);
   });
 
+  it('redirects if no search', () => {
+    search = shallow(<Search location={{ search: '?q=' }} />);
+    expect(search.html()).toEqual('');
+    expect(ReactRouterDOM.Redirect).toHaveBeenCalled();
+  });
+
   it('shows results', () => {
     search = shallow(<Search location={{ search: '?q=About' }} />);
     expect(search.find('NavigationBar').children().length).toEqual(1);
+  });
+
+  it('skips </br> when empty', () => {
+    search = shallow(<Search location={{ search: '?q=साई' }} />);
+    expect(search.html()).not.toContain('<br/><br/>');
   });
 });

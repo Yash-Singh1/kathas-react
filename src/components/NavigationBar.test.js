@@ -5,117 +5,94 @@ import { mount, shallow } from 'enzyme';
 jest.mock('react-router-dom');
 
 describe('NavigationBar', () => {
-  let useStateValueSetterMock;
-  let useStateRedirectSetterMock;
+  ReactRouterDOM.Redirect = jest.fn(() => null);
 
-  beforeEach(() => {
-    useStateValueSetterMock = jest.fn();
-    useStateRedirectSetterMock = jest.fn();
-    // Running multiple times for other calls of useState, e.g. uncontrollable
-    React.useState = jest
-      .fn()
-      .mockReturnValueOnce(['', useStateValueSetterMock]) // value
-      .mockReturnValueOnce([false, useStateRedirectSetterMock]) // redirect
-      .mockReturnValueOnce(['', useStateValueSetterMock])
-      .mockReturnValueOnce([false, useStateRedirectSetterMock])
-      .mockReturnValueOnce(['', useStateValueSetterMock])
-      .mockReturnValueOnce([false, useStateRedirectSetterMock]);
-  });
+  const props = {
+    onChange: jest.fn(),
+    onSubmit: jest.fn(),
+    onClick: jest.fn(),
+    onEnter: jest.fn()
+  };
+  let navbar = mount(<NavigationBar {...props} />);
+  let navbarWithoutProps = mount(<NavigationBar />);
 
-  ReactRouterDOM.Redirect = jest.fn();
+  let btnClicks = 0;
 
-  it('renders properly', () => {
-    const navbar = mount(<NavigationBar />);
-    expect(navbar.html()).toMatchSnapshot();
-  });
+  for (const navbarSelected of [navbar, navbarWithoutProps]) {
+    if (navbarSelected === navbar) {
+      it('renders properly', () => {
+        expect(navbar.html()).toMatchSnapshot();
+      });
+    }
 
-  it('gives back children', () => {
-    const navbar = shallow(
-      <NavigationBar>
-        <div></div>
-      </NavigationBar>
-    );
-    expect(navbar.find('div').exists()).toBe(true);
-  });
-
-  it('has state', () => {
-    shallow(<NavigationBar />);
-    setTimeout(() => expect(React.useState).toHaveBeenCalledTimes(2), 0);
-  });
-
-  describe('and the user wants to search up something', () => {
-    it('edits state on change', () => {
-      const navbar = shallow(<NavigationBar />);
-      navbar
-        .find('FormControl')
-        .simulate('change', { target: { value: 'abc' } });
-      setTimeout(
-        () => expect(useStateValueSetterMock).toHaveBeenCalledWith('abc'),
-        0
+    it('gives back children', () => {
+      const shallowNavbar = shallow(
+        <NavigationBar>
+          <div></div>
+        </NavigationBar>
       );
+      expect(shallowNavbar.find('div').exists()).toBe(true);
     });
 
-    it('redirects if the button is clicked', () => {
-      const navbar = shallow(<NavigationBar />);
-      navbar.find('Button').simulate('click');
-      setTimeout(
-        () =>
-          expect(useStateRedirectSetterMock).toHaveBeenCalledWith('/search?q='),
-        0
-      );
-    });
-
-    it('redirects if enter is pressed', () => {
-      const navbar = shallow(<NavigationBar />);
-      navbar.find('FormControl').simulate('keypress', { which: 13 });
-      setTimeout(
-        () =>
-          expect(useStateRedirectSetterMock).toHaveBeenCalledWith('/search?q='),
-        0
-      );
-    });
-
-    it('removes redirect state', () => {
-      React.useState = jest
-        .fn()
-        .mockReturnValueOnce(['', useStateValueSetterMock]) // value
-        .mockReturnValueOnce(['stuff', useStateRedirectSetterMock]); // redirect
-
-      mount(<NavigationBar />);
-      setTimeout(
-        () => expect(useStateRedirectSetterMock).toHaveBeenCalledWith(false),
-        0
-      );
-    });
-
-    it('stored the query', () => {
-      expect(localStorage.getItem('q')).toEqual('abc');
-    });
-
-    describe('with the query remembered', () => {
-      it('defaults to empty string', () => {
-        localStorage.removeItem('q');
-        mount(<NavigationBar />);
-        setTimeout(() => expect(localStorage.getItem('q')).toEqual(''), 0);
+    describe('and the user wants to search up something', () => {
+      it('detects changes', () => {
+        navbar
+          .find('FormControl')
+          .simulate('change', { target: { value: 'abc' } });
+        expect(props.onChange).toHaveBeenCalledWith('abc');
       });
 
-      it("doesn't remember if search prop not passed", () => {
-        localStorage.setItem('q', 'stuff');
-        mount(<NavigationBar />);
-        setTimeout(
-          () => expect(useStateValueSetterMock).toHaveBeenCalledTimes(0),
-          0
-        );
+      it('redirects if the button is clicked', () => {
+        navbar
+          .find('FormControl')
+          .simulate('change', { target: { value: 'abc' } });
+        navbar.find('Button').simulate('click', {});
+        expect(props.onClick).toHaveBeenCalledWith(expect.anything(), 'abc');
+        btnClicks++;
       });
 
-      it('remembers when search prop is passed', () => {
-        localStorage.setItem('q', 'stuff');
-        mount(<NavigationBar search />);
-        setTimeout(
-          () => expect(useStateValueSetterMock).toHaveBeenCalledWith('stuff'),
-          0
-        );
+      it('no redirect if the button is clicked with empty string', () => {
+        navbar
+          .find('FormControl')
+          .simulate('change', { target: { value: '' } });
+        navbar.find('Button').simulate('click', {});
+        expect(props.onClick).toHaveBeenCalledTimes(btnClicks);
+      });
+
+      it("doesn't redirects if enter is pressed with empty string", () => {
+        navbar = mount(<NavigationBar {...props} />);
+        navbar
+          .find('FormControl')
+          .simulate('change', { target: { value: '' } })
+          .simulate('keypress', { which: 13 });
+        if (navbarSelected === navbar) {
+          expect(ReactRouterDOM.Redirect).toHaveBeenCalledTimes(1);
+
+          // Just pointing out that it shouldn't be called more than once (meaning that redirect isn't set to false)
+          expect(ReactRouterDOM.Redirect).not.toHaveBeenCalledTimes(2);
+        }
+      });
+
+      it('cancels submit event', () => {
+        const preventDefault = jest.fn();
+        navbar.find('Form').simulate('submit', { preventDefault });
+        expect(preventDefault).toHaveBeenCalled();
+      });
+
+      it('redirects if enter is pressed without empty string', () => {
+        navbar
+          .find('FormControl')
+          .simulate('change', { target: { value: 'abc' } })
+          .simulate('keypress', { which: 13 });
+        expect(props.onEnter).toHaveBeenCalledWith(expect.anything(), 'abc');
+      });
+
+      it('stored the query', () => {
+        navbar
+          .find('FormControl')
+          .simulate('change', { target: { value: 'abc' } });
+        expect(localStorage.getItem('q')).toEqual('abc');
       });
     });
-  });
+  }
 });

@@ -6,40 +6,68 @@ function textBoundary(text, search, pos = 1) {
     return (
       <>
         ...<b>{search}</b>...
+        {/* Show the search itself if 100 in length */}
       </>
     );
   } else if (search.length > 100) {
     return (
       <>
         ...<b>{middleOfString(search, 100)}</b>...
+        {/* Show the middle of the serach if greater than 100 in length */}
       </>
     );
   } else {
     let searchIndex = -1;
     for (let i = 0; i < pos; i++) {
-      searchIndex = text.indexOf(search, searchIndex + 1);
+      searchIndex = text.indexOf(search, searchIndex + 1); // Locate the index of the search match
     }
+
+    const boundaryAmount = Math.floor((100 - search.length) / 2);
+    const beforeMatch = text.slice(
+      searchIndex - boundaryAmount < 0 ? 0 : searchIndex - boundaryAmount,
+      searchIndex
+    );
+    let afterMatch = text.slice(
+      searchIndex + search.length,
+      searchIndex + search.length >= text.length
+        ? undefined
+        : boundaryAmount +
+            boundaryAmount -
+            beforeMatch.length +
+            searchIndex +
+            search.length
+    );
+
+    if (beforeMatch.includes(search)) {
+      return <></>;
+    }
+
+    afterMatch = afterMatch
+      .split(search)
+      .reduce((accumalator, searchPart, searchPartIndex, searchParts) => {
+        accumalator.push(
+          <React.Fragment key={accumalator.length}>{searchPart}</React.Fragment>
+        );
+        if (searchPartIndex !== searchParts.length - 1) {
+          accumalator.push(
+            <React.Fragment key={accumalator.length}>
+              <b>{search}</b>
+            </React.Fragment>
+          );
+        }
+        return accumalator;
+      }, []);
+
     return (
       <>
-        {searchIndex - Math.floor((100 - search.length) / 2) < 0 ? '' : '...'}
-        {text.slice(
-          searchIndex - Math.floor((100 - search.length) / 2) < 0
-            ? 0
-            : searchIndex - Math.floor((100 - search.length) / 2),
-          searchIndex
-        )}
+        {/* Check if a ... is needed at beginning */}
+        {searchIndex - boundaryAmount < 0 ? '' : '...'}
+        {beforeMatch}
+        {/* Search in bold (font size increased in CSS) */}
         <b>{search}</b>
-        {text.slice(
-          searchIndex + search.length,
-          searchIndex + search.length + Math.floor((100 - search.length) / 2) >=
-            text.length
-            ? undefined
-            : Math.floor((100 - search.length) / 2) +
-                searchIndex +
-                search.length
-        )}
-        {searchIndex + search.length + Math.floor((100 - search.length) / 2) >=
-        text.length
+        {afterMatch}
+        {/* Check if a ... is needed at end */}
+        {searchIndex + search.length + boundaryAmount >= text.length
           ? ''
           : '...'}
       </>

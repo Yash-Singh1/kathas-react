@@ -1,13 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NavigationBar from './NavigationBar';
 import textBoundary from '../helpers/textBoundary';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import pagesAndContent from '../data/text';
 
 function Search({ location }) {
   const query = decodeURIComponent(
     new URLSearchParams(location?.search).get('q')
   );
+
+  if (query === '') {
+    return <Redirect to='/' />;
+  }
 
   const filteredResults = pagesAndContent.filter((content) =>
     content.text.includes(query)
@@ -27,10 +31,13 @@ function Search({ location }) {
               {pageAndContent.text
                 .split(query)
                 .slice(0, -1)
-                .map((v, index) => (
+                .map((_value, index) =>
+                  textBoundary(pageAndContent.text, query, index + 1)
+                )
+                .map((result, index) => (
                   <React.Fragment key={index}>
-                    {textBoundary(pageAndContent.text, query, index + 1)}
-                    <br />
+                    {result}
+                    {result.props.children ? <br /> : null}
                   </React.Fragment>
                 ))}
             </p>

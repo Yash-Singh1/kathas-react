@@ -12,11 +12,19 @@ import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 import { Link, Redirect } from 'react-router-dom';
 import icon from '../assets/favicon.ico';
 
-const NavigationBar = ({ search, children }) => {
+const NavigationBar = ({
+  search,
+  children,
+  onChange,
+  onSubmit,
+  onClick,
+  onEnter
+}) => {
   const [value, setValue] = useState('');
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
+    // istanbul ignore if
     if (localStorage.getItem('q')) {
       if (search) {
         setValue(localStorage.getItem('q'));
@@ -27,7 +35,6 @@ const NavigationBar = ({ search, children }) => {
   }, []);
 
   useEffect(() => {
-    // istanbul ignore if
     if (redirect) {
       setRedirect(false);
     }
@@ -81,6 +88,10 @@ const NavigationBar = ({ search, children }) => {
                 display: 'flex',
                 justifyContent: 'center'
               }}
+              onSubmit={(event) => {
+                onSubmit?.(event);
+                event.preventDefault();
+              }}
             >
               <FormControl
                 type='search'
@@ -96,11 +107,13 @@ const NavigationBar = ({ search, children }) => {
                 value={value}
                 onChange={(event) => {
                   localStorage.setItem('q', event.target.value);
+                  onChange?.(event.target.value);
                   setValue(event.target.value);
                 }}
                 onKeyPress={(event) => {
                   // istanbul ignore else
-                  if (event.which === 13) {
+                  if (event.which === 13 && value !== '') {
+                    onEnter?.(event, value);
                     setRedirect('/search?q=' + encodeURIComponent(value));
                   }
                 }}
@@ -110,9 +123,12 @@ const NavigationBar = ({ search, children }) => {
                 style={{
                   width: 75
                 }}
-                onClick={() =>
-                  setRedirect('/search?q=' + encodeURIComponent(value))
-                }
+                onClick={(event) => {
+                  if (value !== '') {
+                    onClick?.(event, value);
+                    setRedirect('/search?q=' + encodeURIComponent(value));
+                  }
+                }}
               >
                 Search
               </Button>

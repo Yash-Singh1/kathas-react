@@ -16,7 +16,7 @@
     "react": "^16.14.0",
     "react-bootstrap": "^2.0.0",
     "react-dom": "^16.14.0",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^6.0.1"
   },
   "scripts": {
     "dev": "parcel src/index.html",

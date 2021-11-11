@@ -9,11 +9,11 @@ function Aarti({ match }) {
   return (
     <NavigationBar>
       <h1>
-        {katha.nameHindi} {match.params.type === 'aarti' ? 'आरती' : 'चालीसा'}
+        {katha.nameHindi} {params.type === 'aarti' ? 'आरती' : 'चालीसा'}
       </h1>
       <br />
       <p>
-        {katha[match.params.type].split('\n').map((line, index) => (
+        {katha[params.type].split('\n').map((line, index) => (
           <React.Fragment key={index}>
             {line}
             <br />

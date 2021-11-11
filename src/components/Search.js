@@ -1,17 +1,13 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
 import textBoundary from '../helpers/textBoundary';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import pagesAndContent from '../data/text';
 
-function Search({ location }) {
+function Search({ loc }) {
   const query = decodeURIComponent(
-    new URLSearchParams(location?.search).get('q')
+    new URLSearchParams((loc || useLocation()).search).get('q')
   );
-
-  if (query === '') {
-    return <Redirect to='/' />;
-  }
 
   const filteredResults = pagesAndContent.filter((content) =>
     content.text.includes(query)
@@ -19,7 +15,7 @@ function Search({ location }) {
 
   return (
     <NavigationBar search>
-      {filteredResults.length === 0 ? (
+      {filteredResults.length === 0 || query.trim() === '' ? (
         <p>No results found</p>
       ) : (
         filteredResults.map((pageAndContent, id) => (

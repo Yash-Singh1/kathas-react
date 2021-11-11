@@ -1,17 +1,19 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
 import KATHAS from '../data/kathas';
+import { useParams } from 'react-router-dom';
 
 function Aarti({ match }) {
-  const katha = KATHAS.find((katha) => katha.pathName === match.params.god);
+  const params = match?.params || useParams();
+  const katha = KATHAS.find((katha) => katha.pathName === params.god);
   return (
     <NavigationBar>
       <h1>
-        {katha.nameHindi} {match.params.type === 'aarti' ? 'आरती' : 'चालीसा'}
+        {katha.nameHindi} {params.type === 'aarti' ? 'आरती' : 'चालीसा'}
       </h1>
       <br />
       <p>
-        {katha[match.params.type].split('\n').map((line, index) => (
+        {katha[params.type].split('\n').map((line, index) => (
           <React.Fragment key={index}>
             {line}
             <br />

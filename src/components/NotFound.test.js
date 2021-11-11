@@ -1,17 +1,22 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ReactRouterDOM from 'react-router-dom';
+import { Link, BrowserRouter } from 'react-router-dom';
 import NotFound from './NotFound';
-jest.mock('react-router-dom');
+
+Link.render = jest.fn(() => null);
 
 describe('NotFound', () => {
-  const notFound = shallow(<NotFound />);
+  const notFound = shallow(
+    <BrowserRouter>
+      <NotFound />
+    </BrowserRouter>
+  );
 
   it('renders properly', () => {
     expect(notFound.html()).toMatchSnapshot();
   });
 
   it('has a link', () => {
-    expect(ReactRouterDOM.Link.render).toHaveBeenCalled();
+    expect(Link.render).toHaveBeenCalled();
   });
 });

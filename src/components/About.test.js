@@ -1,17 +1,22 @@
 import React from 'react';
-import ReactRouterDOM from 'react-router-dom';
+import { Link, BrowserRouter } from 'react-router-dom';
 import { shallow } from 'enzyme';
 import About from './About';
-jest.mock('react-router-dom');
+
+Link.render = jest.fn(() => null);
 
 describe('About', () => {
-  const about = shallow(<About />);
+  const about = shallow(
+    <BrowserRouter>
+      <About />
+    </BrowserRouter>
+  );
 
   it('renders properly', () => {
     expect(about.html()).toMatchSnapshot();
   });
 
   it('has a link', () => {
-    expect(ReactRouterDOM.Link.render).toHaveBeenCalled();
+    expect(Link.render).toHaveBeenCalled();
   });
 });

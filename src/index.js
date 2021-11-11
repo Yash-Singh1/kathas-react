@@ -5,19 +5,19 @@ import About from './components/About';
 import Search from './components/Search';
 import Aarti from './components/Aarti';
 import NotFound from './components/NotFound';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 render(
   <BrowserRouter>
-    <Switch>
-      <Route exact path='/' component={App} />
-      <Route exact path='/about' component={About} />
-      <Route exact path='/search' component={Search} />
-      <Route path='/:god/:type' render={Aarti} />
-      <Route path='*' render={NotFound} />
-    </Switch>
+    <Routes>
+      <Route exact path='/' element={<App />} />
+      <Route exact path='/about' element={<About />} />
+      <Route exact path='/search' element={<Search />} />
+      <Route path='/:god/:type' element={<Aarti />} />
+      <Route path='*' element={<NotFound />} />
+    </Routes>
   </BrowserRouter>,
   document.getElementById('root')
 );

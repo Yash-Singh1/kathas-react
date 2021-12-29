@@ -5,18 +5,22 @@ on:
 
 permissions:
   pull-requests: write
+  contents: write
 
 jobs:
   dependabot:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.pull_request.labels.*.name, 'github_actions') && github.actor == 'dependabot[bot]' }}
     steps:
+      - name: GH CLI Login
+        run: gh config set prompt disabled && gh auth login --with-token <<< $GITHUB_TOKEN
+
       - name: Wait for build to succeed
         uses: fountainhead/action-wait-for-check@v1.0.0
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: Run tests on Pull Request or Push
+          checkName: Run tests
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Dependabot metadata

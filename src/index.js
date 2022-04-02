@@ -7,7 +7,7 @@ import Aarti from './components/Aarti';
 import NotFound from './components/NotFound';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import './index.scss';
 
 render(
   <BrowserRouter>

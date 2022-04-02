@@ -33,7 +33,8 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "jest-cli": "^27.0.4",
     "jest-enzyme": "^7.1.2",
-    "react-test-renderer": "^16.14.0"
+    "react-test-renderer": "^16.14.0",
+    "sass": "^1.49.11"
   },
   "jest": {
     "setupFilesAfterEnv": [
